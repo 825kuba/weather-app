@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script
+      defer
+      src="https://kit.fontawesome.com/9d54c6adde.js"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" defer src="./script.js"></script>
+  </head>
+  <body>
+    <header class="header">
+      <button class="units">°C</button>
+      <form class="search">
+        <button class="search-btn-geo" type="button">
+          <i class="fas fa-location-arrow"></i>
+        </button>
+        <button class="search-btn" type="submit">
+          <i class="fas fa-search"></i>
+        </button>
+        <input class="search-bar" type="text" placeholder="Prague, CZ" />
+      </form>
+      <button class="my-places"><i class="fas fa-star"></i> My places</button>
+    </header>
+    <main class="main">
+      <div class="card">
+        <!-- <button class="card-btn">+ / -</button>
+        <h2 class="name">Prague</h2>
+        <p class="country">CZ</p>
+        <button class="arrow arrow-left">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <img src="${data.icon}" alt="weather icon" class="icon" />
+        <button class="arrow arrow-right">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+        <p class="temp">15</p>
+        <p class="descr">Clear sky</p>
+        <p class="rain">0</p> 
+        <div class="dots"></div>-->
+      </div>
+    </main>
+    <footer>
+      <div class="api-info">
+        <p>
+          <a href="https://openweathermap.org/" target="_blank"
+            >openweathermap.org</a
+          >
+        </p>
+      </div>
+      <div class="dev-info">
+        <p>Jakub Horuta</p>
+        <a href="https://github.com/825kuba" target="_blank">
+          <img src="./img/GitHub-Mark-Light-32px.png" alt="github logo"
+        /></a>
+      </div>
+    </footer>
+  </body>
+</html>
