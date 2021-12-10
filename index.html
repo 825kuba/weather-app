@@ -48,17 +48,29 @@
     <footer>
       <div class="api-info">
         <p>
+          Click <a href="#" class="change-key">here</a> if you need to change
+          your API key. <br />
+          Thank you
           <a href="https://openweathermap.org/" target="_blank"
             >openweathermap.org</a
           >
+          and
+          <a href="https://unsplash.com/" target="_blank">unsplash.com</a>
         </p>
       </div>
       <div class="dev-info">
-        <p>Jakub Horuta</p>
+        <p>Made by Jakub Horuta</p>
         <a href="https://github.com/825kuba" target="_blank">
           <img src="./img/GitHub-Mark-Light-32px.png" alt="github logo"
         /></a>
       </div>
     </footer>
+
+    <div class="overlay hidden"></div>
+    <form action="#" class="form hidden">
+      <input type="text" id="key" name="key" />
+      <label for="key">Enter you API key</label>
+      <button type="submit">Save key</button>
+    </form>
   </body>
 </html>

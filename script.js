@@ -1,7 +1,5 @@
 'use strict';
 
-import { API_KEY } from './config.js';
-
 // CLASS USED FOR STORING DATA FOR WEATHER CARDS
 class WeatherCard {
   constructor(
@@ -57,6 +55,12 @@ const searchBtnGeo = document.querySelector('.search-btn-geo');
 const main = document.querySelector('.main');
 const card = document.querySelector('.card');
 
+const overlay = document.querySelector('.overlay');
+const form = document.querySelector('.form');
+const formInput = document.querySelector('.form input');
+const formBtn = document.querySelector('.form button');
+const changeKeyBtn = document.querySelector('.change-key');
+
 class App {
   // USED FOR TEMP UNITS
   unitsMetric = true;
@@ -64,10 +68,13 @@ class App {
   card;
   myPlaces = [];
   myPlacesIndex = 0;
+  API_KEY;
 
   constructor() {
     this.getLocalStorage();
     this.focusSearchBar();
+    // DISPLAY FORM FOR INPUTING API KEY IF THERE WAS NO API KEY IN THE STORAGE
+    this.displayKeyForm();
     // GET USERS LOCATION AND LOAD WEATHER FOR IT
     this.weatherForGeolocation();
 
@@ -87,10 +94,21 @@ class App {
     card.addEventListener('click', this.addOrRemoveCard.bind(this));
     card.addEventListener('click', this.nextMyPlace.bind(this));
     card.addEventListener('click', this.prevMyPlace.bind(this));
+
+    formBtn.addEventListener('click', this.getAPIKey.bind(this));
+    changeKeyBtn.addEventListener('click', function () {
+      overlay.classList.remove('hidden');
+      form.classList.remove('hidden');
+    });
+    overlay.addEventListener('click', function () {
+      overlay.classList.add('hidden');
+      form.classList.add('hidden');
+    });
   }
 
   //GET USER LOCATION AND SHOW WEATHER BASED ON IT
   weatherForGeolocation() {
+    if (!this.API_KEY) return;
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         this.getWeather.bind(this),
@@ -119,20 +137,23 @@ class App {
   getWeather = async function (fetchData) {
     try {
       if (!fetchData) return;
+      if (!this.API_KEY) return;
       //RENDER SPINNER UNTIL THE DATA IS READY TO RENDER
       this.renderSpinner();
       const response = fetchData.coords
         ? //IF COORDS OBJECT EXIST IN FETCH DATA, USE API WITH GEO INPUT
           await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${fetchData.coords.latitude}&lon=${fetchData.coords.longitude}&appid=${API_KEY}&lang=${navigator.language}`
+            `https://api.openweathermap.org/data/2.5/weather?lat=${fetchData.coords.latitude}&lon=${fetchData.coords.longitude}&appid=${this.API_KEY}&lang=${navigator.language}`
           )
         : // ELSE USE API WITH CITY NAME INPUT
           await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?q=${fetchData}&appid=${API_KEY}&lang=${navigator.language}`
+            `https://api.openweathermap.org/data/2.5/weather?q=${fetchData}&appid=${this.API_KEY}&lang=${navigator.language}`
           );
 
       if (!response.ok) {
-        throw new Error(`We couldn't find that :(`);
+        throw new Error(
+          `We don't know that place, or possibly your API key is not valid :(`
+        );
       }
       const data = await response.json();
       this.newCard(data);
@@ -268,19 +289,46 @@ class App {
     this.setLocalStorage();
   }
 
+  displayKeyForm() {
+    //check if there already is a key, if not render the form
+    if (!this.API_KEY) {
+      overlay.classList.remove('hidden');
+      form.classList.remove('hidden');
+    } else {
+      overlay.classList.add('hidden');
+      form.classList.add('hidden');
+    }
+  }
+
+  getAPIKey(e) {
+    // SAVE THE KEY FROM THE FORM TO LOCAL STORAGE, CLOSE FORM AND LOAD WEATHER
+    e.preventDefault();
+    if (!formInput.value) return;
+    this.API_KEY = formInput.value;
+    this.setLocalStorage();
+    this.displayKeyForm();
+    this.weatherForGeolocation();
+  }
+
   setLocalStorage() {
     localStorage.setItem('myPlaces', JSON.stringify(this.myPlaces));
+    localStorage.setItem('APIKey', JSON.stringify(this.API_KEY));
   }
 
   getLocalStorage() {
-    const data = JSON.parse(localStorage.getItem('myPlaces'));
-    if (!data) return;
-    this.myPlaces = data;
+    // get data for myPlaces
+    const myPlaces = JSON.parse(localStorage.getItem('myPlaces'));
+    if (!myPlaces) return;
+    this.myPlaces = myPlaces;
     //  SET PROTOTYPES OF DATA FROM STORAGE
     this.myPlaces.forEach(place => {
       if (place.__proto__ !== WeatherCard.prototype)
         place.__proto__ = WeatherCard.prototype;
     });
+    // GET API KEY
+    const key = JSON.parse(localStorage.getItem('APIKey'));
+    if (!key) return;
+    this.API_KEY = key;
   }
 
   renderBackground(data) {
