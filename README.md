@@ -1,14 +1,17 @@
 # Weather app
 
 Built with vanilla JS.
+Makes use of the local storage.
+Uses https://openweathermap.org/ API.
 
-Based on https://openweathermap.org/ API.
+Try it here: https://jakub-weather.netlify.app/
 
-Note that if you wish to clone this repo you will need to get your own API key.
+Note that you will need your own OpenWeatherMap API key.
 
 Features:
 
-- get weather for geo location
+- input field to insert the API key
+- get weather for user's location
 - search for a place
 - add places to favourites ("My places")
 - change temperature units between °C and °F

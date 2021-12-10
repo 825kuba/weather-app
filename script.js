@@ -96,14 +96,8 @@ class App {
     card.addEventListener('click', this.prevMyPlace.bind(this));
 
     formBtn.addEventListener('click', this.getAPIKey.bind(this));
-    changeKeyBtn.addEventListener('click', function () {
-      overlay.classList.remove('hidden');
-      form.classList.remove('hidden');
-    });
-    overlay.addEventListener('click', function () {
-      overlay.classList.add('hidden');
-      form.classList.add('hidden');
-    });
+    changeKeyBtn.addEventListener('click', this.openKeyForm);
+    overlay.addEventListener('click', this.closeKeyForm);
   }
 
   //GET USER LOCATION AND SHOW WEATHER BASED ON IT
@@ -292,12 +286,21 @@ class App {
   displayKeyForm() {
     //check if there already is a key, if not render the form
     if (!this.API_KEY) {
-      overlay.classList.remove('hidden');
-      form.classList.remove('hidden');
+      this.openKeyForm();
     } else {
-      overlay.classList.add('hidden');
-      form.classList.add('hidden');
+      this.closeKeyForm();
     }
+  }
+
+  openKeyForm() {
+    overlay.classList.remove('hidden');
+    form.classList.remove('hidden');
+    formInput.focus();
+  }
+
+  closeKeyForm() {
+    overlay.classList.add('hidden');
+    form.classList.add('hidden');
   }
 
   getAPIKey(e) {
