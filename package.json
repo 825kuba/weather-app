@@ -2,7 +2,6 @@
   "name": "weather-app",
   "version": "1.0.0",
   "description": "Built with vanilla JS.\r Makes use of the local storage.\r Uses https://openweathermap.org/ API.",
-  "main": "config.js",
   "scripts": {
     "start": "parcel ./src/index.html",
     "build": "parcel build ./src/index.html"
