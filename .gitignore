@@ -2,4 +2,7 @@ design.png
 design.svg
 .prettierrc
 to-do.txt
-config.js
+.env
+node_modules
+.parcel-cache
+dist
