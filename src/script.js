@@ -1,6 +1,6 @@
 'use strict';
 
-require('dotenv').config();
+// require('dotenv').config();
 
 // CLASS USED FOR STORING DATA FOR WEATHER CARDS
 class WeatherCard {
