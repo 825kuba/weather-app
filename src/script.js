@@ -119,15 +119,14 @@ class App {
       if (!fetchData) return;
       //RENDER SPINNER UNTIL THE DATA IS READY TO RENDER
       this.renderSpinner();
+      // MAKE API CALL VIE NETLIFY FUNCTIONS
       const response = fetchData.coords
         ? //IF COORDS OBJECT EXIST IN FETCH DATA, USE API WITH GEO INPUT
           await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${fetchData.coords.latitude}&lon=${fetchData.coords.longitude}&appid=${process.env.API_KEY}&lang=${navigator.language}`
+            `/.netlify/functions/fetch-weather?lat=${fetchData.coords.latitude}&long=${fetchData.coords.longitude}`
           )
         : // ELSE USE API WITH CITY NAME INPUT
-          await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?q=${fetchData}&appid=${process.env.API_KEY}&lang=${navigator.language}`
-          );
+          await fetch(`/.netlify/functions/fetch-weather?query=${fetchData}`);
 
       if (!response.ok) {
         throw new Error(`We couldn't find that place :(`);
@@ -284,12 +283,13 @@ class App {
 
   renderBackground(data) {
     // SET BODY BACKGROUND ACCORDING TO WEATHER CONDITIONS
-    document.body.style.background = `linear-gradient(
-      0deg,
+    document.body.style.background = `
+    linear-gradient(
+      to top,
       rgba(0, 0, 0, 0) 75%,
       rgba(0, 0, 0, 0.9) 100%
     ),
-    url(${data.background})`;
+    url('${data.background}')`;
     document.body.style.backgroundRepeat = 'no-repeat';
     document.body.style.backgroundPosition = 'center center';
     document.body.style.backgroundSize = 'cover';

@@ -17,9 +17,11 @@
   },
   "homepage": "https://github.com/825kuba/weather-app#readme",
   "dependencies": {
+    "axios": "^0.25.0",
     "dotenv": "^16.0.0"
   },
   "devDependencies": {
+    "netlify-cli": "^9.0.2",
     "parcel": "^2.2.1"
   }
 }

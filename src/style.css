@@ -18,6 +18,12 @@ html {
   font-size: 21px;
   font-weight: 400;
   background-color: var(--background-primary);
+  /* background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0) 75%,
+      rgba(0, 0, 0, 0.9) 100%
+    ),
+    url('./img/bg/13d.jpg'); */
 }
 
 /* //////////////////
@@ -60,6 +66,12 @@ button {
 .fa-sun {
   font-size: 3rem;
   animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* search bar location icon */
@@ -230,82 +242,22 @@ main {
 footer {
   background-color: var(--overlay);
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0.2rem 0.5rem;
+  padding: 0.5rem 0;
 }
 
 footer p {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
 }
 
 .dev-info {
-  margin-top: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 0.5rem;
 }
 
 .dev-info img {
   max-width: 1.2rem;
-  margin-left: 0.5rem;
-}
-
-/* //////////////////
-      API KEY FORM
-////////////////// */
-
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: var(--overlay);
-  z-index: 100;
-}
-
-.form {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 500px;
-  height: 200px;
-  background-color: var(--overlay);
-  opacity: 0.8;
-  z-index: 200;
-  margin: 0 auto;
-  display: grid;
-}
-
-.form input {
-  background-color: var(--background-primary);
-  color: var(--font-primary);
-}
-
-.form label {
-  text-align: center;
-  padding: 10px;
-}
-
-.form button {
-  border: 1px solid var(--font-primary);
-  padding: 10px;
-}
-
-.form button:active {
-  background-color: var(--background-primary);
-  color: var(--overlay);
-}
-
-.hidden {
-  display: none;
-}
-
-@keyframes rotate {
-  100% {
-    transform: rotate(360deg);
-  }
 }
